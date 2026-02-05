@@ -1,0 +1,33 @@
+{
+  "name": "bizz-wallet",
+  "version": "1.0.0",
+  "description": "Crypto wallet for business as Point of Sale",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@solana/web3.js": "^1.98.4",
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/node": "^25.2.0",
+    "@types/react": "^19.2.11",
+    "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.4.24",
+    "framer-motion": "^12.31.0",
+    "next": "^16.1.6",
+    "postcss": "^8.5.6",
+    "qrcode.react": "^4.2.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
+  },
+  "devDependencies": {
+    "@types/qrcode.react": "^1.0.5"
+  }
+}
