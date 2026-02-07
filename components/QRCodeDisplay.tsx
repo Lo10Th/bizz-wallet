@@ -2,12 +2,18 @@
 
 import { QRCodeSVG } from 'qrcode.react';
 import { motion } from 'framer-motion';
+import { createSolanaPaymentRequest } from '@/lib/solana';
 
 interface QRCodeDisplayProps {
   address: string;
+  amount?: number | null;
 }
 
-export default function QRCodeDisplay({ address }: QRCodeDisplayProps) {
+export default function QRCodeDisplay({ address, amount }: QRCodeDisplayProps) {
+  const hasAmount = typeof amount === 'number' && Number.isFinite(amount);
+  const paymentRequest = hasAmount
+    ? createSolanaPaymentRequest(address, amount)
+    : `solana:${address}`;
   return (
     <motion.div
       initial={{ scale: 0, rotate: -10 }}
@@ -17,7 +23,7 @@ export default function QRCodeDisplay({ address }: QRCodeDisplayProps) {
     >
       <div className="bg-white p-4 border-4 border-black">
         <QRCodeSVG
-          value={address}
+          value={paymentRequest}
           size={200}
           level="H"
           includeMargin={false}
@@ -25,7 +31,10 @@ export default function QRCodeDisplay({ address }: QRCodeDisplayProps) {
           fgColor="#000000"
         />
       </div>
-      <div className="mt-4 text-center font-bold text-sm break-all">
+      <div className="mt-4 text-center font-bold text-sm">
+        {hasAmount ? `PAY ${amount.toFixed(4)} SOL` : 'ENTER AMOUNT TO CREATE PAYMENT'}
+      </div>
+      <div className="mt-1 text-center text-xs font-medium break-all opacity-70">
         {address.slice(0, 8)}...{address.slice(-8)}
       </div>
     </motion.div>

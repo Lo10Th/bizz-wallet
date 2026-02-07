@@ -11,7 +11,7 @@ Solana POS Shadow is a merchant dashboard for accepting Solana payments. It feat
 - **Address Validation**: Enter and validate Solana public addresses
 - **Balance Display**: View SOL balance with animated count-up effect
 - **Transaction Feed**: Receipt-style list of the last 10 transactions
-- **QR Code Generator**: Generate QR codes for easy payment collection
+- **Payment QR Generator**: Create Solana Pay QR codes with preset amounts
 - **Playful Animations**: Squishy buttons, wobbly loading spinner, and staggered list animations
 
 ## Tech Stack
@@ -68,8 +68,9 @@ npm start
 
 1. **Enter Address**: On the landing page, enter a valid Solana public address
 2. **View Dashboard**: See the merchant dashboard with balance and transactions
-3. **QR Code**: Use the generated QR code for customers to scan and send payments
-4. **Monitor Transactions**: Watch incoming and outgoing transactions in real-time
+3. **Create Payment**: Enter a payment amount to generate a Solana Pay QR code
+4. **QR Code**: Show the generated QR code for customers to scan and send payments
+5. **Monitor Transactions**: Watch incoming and outgoing transactions in real-time
 
 ## Design Philosophy
 
