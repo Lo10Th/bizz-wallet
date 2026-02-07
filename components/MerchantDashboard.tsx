@@ -34,7 +34,7 @@ export default function MerchantDashboard({ address, onBack }: MerchantDashboard
 
     const parsedAmount = Number(trimmedAmount);
     if (!Number.isFinite(parsedAmount) || parsedAmount <= 0) {
-      setAmountError('Enter a valid amount');
+      setAmountError('Amount must be a positive number');
       return;
     }
 

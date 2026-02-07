@@ -26,12 +26,11 @@ export function isValidSolanaAddress(address: string): boolean {
  * Builds a Solana Pay payment request URI
  */
 export function createSolanaPaymentRequest(address: string, amount: number): string {
-  const normalizedAmount = Number(amount);
-  if (!Number.isFinite(normalizedAmount) || normalizedAmount <= 0) {
+  if (!Number.isFinite(amount) || amount <= 0) {
     return `solana:${address}`;
   }
 
-  return `solana:${address}?amount=${encodeURIComponent(normalizedAmount.toString())}`;
+  return `solana:${address}?amount=${encodeURIComponent(amount)}`;
 }
 
 /**

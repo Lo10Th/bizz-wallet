@@ -14,8 +14,6 @@ export default function QRCodeDisplay({ address, amount }: QRCodeDisplayProps) {
   const paymentRequest = hasAmount
     ? createSolanaPaymentRequest(address, amount)
     : `solana:${address}`;
-  const formattedAmount = hasAmount ? amount.toFixed(4) : null;
-
   return (
     <motion.div
       initial={{ scale: 0, rotate: -10 }}
@@ -34,7 +32,7 @@ export default function QRCodeDisplay({ address, amount }: QRCodeDisplayProps) {
         />
       </div>
       <div className="mt-4 text-center font-bold text-sm">
-        {hasAmount ? `PAY ${formattedAmount} SOL` : 'ENTER AMOUNT TO CREATE PAYMENT'}
+        {hasAmount ? `PAY ${amount.toFixed(4)} SOL` : 'ENTER AMOUNT TO CREATE PAYMENT'}
       </div>
       <div className="mt-1 text-center text-xs font-medium break-all opacity-70">
         {address.slice(0, 8)}...{address.slice(-8)}
