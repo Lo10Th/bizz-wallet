@@ -23,6 +23,18 @@ export function isValidSolanaAddress(address: string): boolean {
 }
 
 /**
+ * Builds a Solana Pay payment request URI
+ */
+export function createSolanaPaymentRequest(address: string, amount: number): string {
+  const normalizedAmount = Number(amount);
+  if (!Number.isFinite(normalizedAmount) || normalizedAmount <= 0) {
+    return `solana:${address}`;
+  }
+
+  return `solana:${address}?amount=${encodeURIComponent(normalizedAmount.toString())}`;
+}
+
+/**
  * Fetches the SOL balance for a given address
  */
 export async function getBalance(address: string): Promise<number> {

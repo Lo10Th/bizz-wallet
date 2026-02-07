@@ -18,6 +18,28 @@ export default function MerchantDashboard({ address, onBack }: MerchantDashboard
   const [transactions, setTransactions] = useState<TransactionInfo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [paymentAmount, setPaymentAmount] = useState('');
+  const [paymentQrAmount, setPaymentQrAmount] = useState<number | null>(null);
+  const [amountError, setAmountError] = useState('');
+
+  const handlePaymentSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    setAmountError('');
+
+    const trimmedAmount = paymentAmount.trim();
+    if (!trimmedAmount) {
+      setAmountError('Please enter an amount');
+      return;
+    }
+
+    const parsedAmount = Number(trimmedAmount);
+    if (!Number.isFinite(parsedAmount) || parsedAmount <= 0) {
+      setAmountError('Enter a valid amount');
+      return;
+    }
+
+    setPaymentQrAmount(parsedAmount);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -124,7 +146,51 @@ export default function MerchantDashboard({ address, onBack }: MerchantDashboard
             transition={{ delay: 0.2 }}
             className="lg:col-span-1 flex justify-center"
           >
-            <QRCodeDisplay address={address} />
+            <div className="w-full max-w-sm space-y-6">
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.25 }}
+                className="card-brutal p-6"
+              >
+                <h2 className="text-2xl font-bold mb-4 text-center">CREATE PAYMENT</h2>
+                <form onSubmit={handlePaymentSubmit} className="space-y-4">
+                  <input
+                    type="number"
+                    min="0"
+                    step="0.0001"
+                    inputMode="decimal"
+                    value={paymentAmount}
+                    onChange={(event) => {
+                      setPaymentAmount(event.target.value);
+                      setAmountError('');
+                    }}
+                    placeholder="Amount in SOL"
+                    className="input-brutal w-full text-center text-lg"
+                  />
+                  <motion.button
+                    type="submit"
+                    className="btn-brutal w-full text-lg"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    GENERATE PAYMENT QR
+                  </motion.button>
+                </form>
+                {amountError && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-4 p-3 bg-white border-4 border-black text-center font-bold"
+                  >
+                    {amountError}
+                  </motion.div>
+                )}
+              </motion.div>
+              <div className="flex justify-center">
+                <QRCodeDisplay address={address} amount={paymentQrAmount} />
+              </div>
+            </div>
           </motion.div>
 
           {/* Transaction List */}
